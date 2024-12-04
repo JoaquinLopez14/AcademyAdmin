@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -30,29 +30,22 @@ input:focus {
 }
 
 @font-face {
-  font-family: "Bebas Neue";
-  src: url("/src/renderer/assets/fonts/Bebas.ttf") format("truetype");
+  font-family: 'Montserrat';
+  src: url('./Montserrat.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("./assets/fonts/Montserrat.ttf") format("truetype");
+  font-family: 'Raleway';
+  src: url('./Raleway.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Raleway";
-  src: url("./assets/fonts/Raleway.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Staatliches";
-  src: url("./assets/fonts/Staatliches.ttf") format("truetype");
+  font-family: 'Staatliches';
+  src: url('./Staatliches.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

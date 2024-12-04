@@ -32,7 +32,7 @@ function TablePoints() {
 
 
 return (
-    <section className="min-w-screen min-h-screen flex flex-col bg-[url('../assets/table.png')] bg-[#290028]">
+    <section className="min-w-screen min-h-screen bg-[url('../assets/table.png')] flex flex-col bg-[#290028]">
         <Link to="/" className='text-white border-2 rounded-lg p-2 m-2 w-36 text-center bg-black'>
             Volver atrás
         </Link>

@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import TablePoints from "./TablePoints"
-import Home from "./Home"
-import PointsAdmin from "./PointsAdmin"
+import { HashRouter as Router, Route, Routes} from "react-router-dom"
+import TablePoints from "./components/TablePoints"
+import Home from "./components/Home"
+import PointsAdmin from "./components/PointsAdmin"
 
 
 function App() {

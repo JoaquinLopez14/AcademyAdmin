@@ -10,9 +10,12 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
+    assetsInclude: 'src/renderer/assets/**',
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src')
+        '@renderer': resolve('src/renderer/src'),
+        '/@assets': resolve('src/renderer/assets'),
+        '/@components': resolve('src/renderer/src/components')
       }
     },
     plugins: [react()]
