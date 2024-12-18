@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 function Home() {
-    console.log("El componente Home carga"); // Verifica si el componente se carga
     return (
         <section className="w-screen h-screen bg-slate-300 bg-[url('../assets/tango.jpg')] flex flex-col justify-center items-center">
             <h1 className="text-white text-9xl p-10 font-Bebas">Academia</h1>

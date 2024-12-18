@@ -49,3 +49,23 @@ input:focus {
   font-weight: normal;
   font-style: normal;
 }
+
+.filter-btn {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  width: 4rem;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.filter-btn:hover {
+  transform: scale(1.05);
+}
+
+.filter-btn:active {
+  background-color: #22c55e;
+}
