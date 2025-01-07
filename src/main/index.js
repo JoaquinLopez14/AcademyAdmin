@@ -1,8 +1,11 @@
-import { app, shell, BrowserWindow, screen, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, screen, ipcMain, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import fs from 'fs'
 import path from 'path'
+import icon from '../renderer/src/assets/icon.png'
+
+let mainWindow
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
@@ -13,6 +16,7 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: true,
     resizable: true,
+    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       nodeIntegration: true,
       preload: join(__dirname, '../preload/preload.js'),
@@ -29,6 +33,23 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
+  })
+
+  let zoomLevel = 1.0
+
+  globalShortcut.register('CommandOrControl+=', () => {
+    zoomLevel += 0.1
+    mainWindow.webContents.setZoomFactor(zoomLevel)
+  })
+
+  globalShortcut.register('CommandOrControl+-', () => {
+    zoomLevel = Math.max(0.1, zoomLevel - 0.1)
+    mainWindow.webContents.setZoomFactor(zoomLevel)
+  })
+
+  globalShortcut.register('CommandOrControl+0', () => {
+    zoomLevel = 1.0
+    mainWindow.webContents.setZoomFactor(zoomLevel)
   })
 
   // HMR for renderer base on electron-vite cli.

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdDeleteForever } from "react-icons/md";
 import { calculateRanking } from './utils/Ranking';
+import * as XLSX from 'xlsx'
 
 function PointsAdmin() {
     const [couplesInputs, setCouplesInputs] = useState([]);
@@ -59,7 +60,7 @@ function PointsAdmin() {
             const count = validPoints.length;
 
             updatedInputs[index].average = 
-                count >= 3 ? (validPoints.reduce((acc, curr) => acc + curr, 0) / count).toFixed(3) : '';
+            count > 0 ? (validPoints.reduce((acc, curr) => acc + curr, 0) / count).toFixed(2) : 0;
         }
         setCouplesInputs(updatedInputs);
     };
@@ -84,9 +85,30 @@ function PointsAdmin() {
             points3: '',
             points4: '',
             average: '',
+            rank: ''
         }));
         setCouplesInputs(clearedInputs)
     }
+
+    const excelForJudges = () => {
+        const wb = XLSX.utils.book_new();
+        const judges = ['Hoffner', 'Matera', 'Gauna', 'Rodriguez'];
+            judges.forEach((judge, index) => {
+                const data = couplesInputs.map(couple => ({
+                    Orden: couple.orden,
+                    Bailarin: couple.femaleDancer,
+                    Bailarín: couple.maleDancer,
+                    Localidad: couple.country,
+                    Observaciones: '',
+                    Puntaje: '',
+                    Firma: ''
+                }))
+                 const ws = XLSX.utils.json_to_sheet(data);
+                 const judgeName = judges[index + 1]
+                XLSX.utils.book_append_sheet(wb, ws, judgeName);
+            })
+            XLSX.writeFile(wb, 'jueces.xlsx')
+    };
 
     // Función para guardar los cambios en el estado final
     const saveData = async () => {
@@ -103,8 +125,8 @@ function PointsAdmin() {
             <div className='text-center'>
                 <h1 className='text-white text-7xl font-Bebas mt-10 '>Administración</h1>
             </div>
-            <div className='items-center justify-center flex flex-col m-5'>
-                <button onClick={addCouple} className='mb-5 active:bg-green-500 hover:scale-105 transition-all text-black border-black border-2 font-Montserrat p-2 rounded-xl w-36 text-center bg-white'>
+            <div className='items-center justify-center flex m-5 gap-10'>
+                <button onClick={addCouple} className=' active:bg-green-500 hover:scale-105 transition-all text-black border-black border-2 font-Montserrat p-2 rounded-xl w-36 text-center bg-white'>
                     Agregar Pareja
                 </button>
                 <div className="flex gap-4">
@@ -112,8 +134,11 @@ function PointsAdmin() {
                     <button onClick={() => setCategoryFilter('A')} className="filter-btn hover:bg-orange-700 focus:bg-orange-700">A</button>
                     <button onClick={() => setCategoryFilter('L')} className="filter-btn hover:bg-blue-700 focus:bg-blue-700">L</button>
                 </div>
-                <button onClick={clearPoints} className='active:bg-green-500 hover:scale-105 transition-all text-black border-black border-2 font-Montserrat p-2 rounded-xl w-44 mt-5 text-center bg-white'>
+                <button onClick={clearPoints} className='active:bg-green-500 hover:scale-105 transition-all text-black border-black border-2 font-Montserrat p-2 rounded-xl w-44 text-center bg-white'>
                     Borrar Puntajes
+                </button>
+                <button onClick={excelForJudges} className='active:bg-blue-500 hover:scale-105 transition-all text-black border-black border-2 font-Montserrat p-2 rounded-xl w-44 text-center bg-white'>
+                    Exportar a Excel
                 </button>
             </div>
                 <div className='flex w-[90%] mb-2 mr-12 p-1 text-center items-center justify-center gap-5 text-lg font-Montserrat bg-black'>
@@ -131,7 +156,8 @@ function PointsAdmin() {
             {filteredCategory.map((couple) => {
                 const index = couplesInputs.indexOf(couple);
                 return (
-                    <div className='w-[90%] mb-2 flex gap-5 text-center items-center justify-center font-Staatliches text-3xl text-white'>
+                    <div className='w-[90%] mb-2 flex flex-wrap gap-5 text-center items-center justify-center font-Staatliches text-3xl text-white'>
+                        
                         <input type="text" className={`bg-[#01010152] w-14 h-10 text-center ${
                             couple.category === 'S' ? 'text-red-600' :
                             couple.category === 'A' ? 'text-orange-600' :

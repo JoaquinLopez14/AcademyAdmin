@@ -121,7 +121,7 @@ function TablePoints() {
                                  'Libre'}
                 </h1>
             </div>
-                <table className="border-collapse table-fixed bg-[#290028]">
+                <table className="border-collapse table-fixed bg-[#290028] mb-20">
                     <thead>
                         <tr className="bg-black text-white align-center h-10 font-Montserrat">
                             <th onClick={sortByOrden} className="w-7 transition-all hover:cursor-pointer hover:bg-gray-500">
@@ -150,7 +150,7 @@ function TablePoints() {
                                         }`}
                                     >
                                         <td className="h-12 w-7">{couple.orden}</td>
-                                        <td className='w-[400px]'> {couple.femaleDancer} y {couple.maleDancer}</td>
+                                        <td className='w-[400px]'> {couple.femaleDancer} - {couple.maleDancer}</td>
                                         <td className="w-56">{couple.country}</td>
                                         <td className="w-24 text-yellow-200">{couple.points1}</td>
                                         <td className="w-24 text-yellow-200">{couple.points2}</td>
