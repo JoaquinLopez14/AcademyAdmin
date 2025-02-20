@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as XLSX from 'xlsx'
-import DomToImage from 'dom-to-image';
 import { saveAs } from 'file-saver'
 
 function TablePoints() {
@@ -63,24 +62,15 @@ function TablePoints() {
         XLSX.writeFile(wb, 'puntajes.xlsx')
     }
 
-    const captureScreenshot = () => {
-        const node = document.getElementById('table-points');
-        const options = { quality: 0.95 };
-        DomToImage.toJpeg(node, options).then((dataUrl) => saveAs(dataUrl, 'puntuacion.jpeg'));
-    };
-
     const togglePhase = (event) => {
         const words = ['Clasificatoria', 'Semifinal', 'Final']
-    // Si no existe un índice, inicialízalo en 0
     if (!event.target.dataset.index) {
         event.target.dataset.index = 0;
     }
 
-    // Obtén el índice actual y calcula el siguiente
     let index = parseInt(event.target.dataset.index, 10);
     index = (index + 1) % words.length;
 
-    // Actualiza el texto del elemento y el índice almacenado
     event.target.textContent = words[index];
     event.target.dataset.index = index;
     }
@@ -105,9 +95,6 @@ function TablePoints() {
                     <button onClick={exportToExcel} className=" ml-10 bg-green-500 hover:scale-105 transition-all text-white py-2 px-4 rounded">
                         Exportar a Excel
                     </button>
-                    <button onClick={captureScreenshot} className="ml-4 bg-blue-500 hover:scale-105 transition-all text-white py-2 px-4 rounded">
-                        Capturar Tabla
-                    </button>
             </div>
             <div id="table-points" className="flex flex-col min-w-screen justify-center">
             <div className="flex min-w-screen text-white justify-center items-center gap-5 mb-5 mt-5">
@@ -129,7 +116,7 @@ function TablePoints() {
                             </th>
                             <th className='w-[400px]'>Bailarines</th>
                             <th className="w-56">Localidad</th>
-                            <th className="w-24">Hoffner</th>
+                            <th className="w-24">Hoeffner</th>
                             <th className="w-24">Rodriguez</th>
                             <th className="w-24">Matera</th>
                             <th className="w-24">Gauna</th>

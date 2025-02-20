@@ -147,7 +147,7 @@ function PointsAdmin() {
                             <label className='w-56 text-white'>Bailarina</label>
                             <label className='w-56 text-white'>Bailarín</label>
                             <label className='w-44 text-white'>Ciudad</label>
-                            <label className='w-20 text-white'>Hoffner</label>
+                            <label className='w-20 text-white'>Hoeffner</label>
                             <label className='w-20 text-white'>Rodriguez</label>
                             <label className='w-20 text-white'>Matera</label>
                             <label className='w-20 text-white'>Gauna</label>
