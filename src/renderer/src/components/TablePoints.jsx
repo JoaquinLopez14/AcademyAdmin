@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as XLSX from 'xlsx'
-import { saveAs } from 'file-saver'
 
 function TablePoints() {
     const [couples, setCouples] = useState([]);
@@ -9,6 +8,7 @@ function TablePoints() {
     const [filteredCouples, setFilteredCouples] = useState([]);
     const [ranking, setRanking] = useState(true);
     const [byOrden, setByOrden] = useState(true);
+    const [eliminatedCouples, setEliminatedCouples] = useState(1)
 
     useEffect(() => {
         (async () => {
@@ -16,7 +16,6 @@ function TablePoints() {
             setCouples(loadedCouples);
         })();
     }, []);
-
 
     useEffect(() => {
         setFilteredCouples(couples.filter(couple => couple.category === category));
@@ -44,7 +43,7 @@ function TablePoints() {
 
     const getOutCouples = (couples) => {
         const sortedByRank = [...couples].sort((a,b) => a.rank - b.rank);
-        return sortedByRank.slice(-5)
+        return sortedByRank.slice(0, -eliminatedCouples);
     }
     const outCouples = getOutCouples(filteredCouples)
 
@@ -95,6 +94,12 @@ function TablePoints() {
                     <button onClick={exportToExcel} className=" ml-10 bg-green-500 hover:scale-105 transition-all text-white py-2 px-4 rounded">
                         Exportar a Excel
                     </button>
+                <div className='ml-10 flex items-center justify-center'>
+                    <label className='text-white font-Montserrat mr-2'>Parejas Eliminadas:</label>
+                    <input className='w-12 h-10 text-center text-2xl'
+                            value={eliminatedCouples}
+                            onChange={(e) => setEliminatedCouples(Number(e.target.value))}></input>
+                </div>
             </div>
             <div id="table-points" className="flex flex-col min-w-screen justify-center">
             <div className="flex min-w-screen text-white justify-center items-center gap-5 mb-5 mt-5">
@@ -114,8 +119,8 @@ function TablePoints() {
                             <th onClick={sortByOrden} className="w-7 transition-all hover:cursor-pointer hover:bg-gray-500">
                                 Orden
                             </th>
-                            <th className='w-[400px]'>Bailarines</th>
-                            <th className="w-56">Localidad</th>
+                            <th className='w-[400px]'>Participantes</th>
+                            <th className="w-56">Representan</th>
                             <th className="w-24">Hoeffner</th>
                             <th className="w-24">Rodriguez</th>
                             <th className="w-24">Matera</th>
@@ -133,7 +138,7 @@ function TablePoints() {
                                     <tr
                                         key={index}
                                         className={`text-center text-white align-center text-2xl font-Staatliches ${
-                                            isOut ? ' odd:bg-[#852d2d7e] even:bg-[#a01818]' : 'odd:bg-[#286d25e5] even:bg-[#3c883981]'
+                                            isOut ? 'odd:bg-[#286d25e5] even:bg-[#3c883981]' : 'odd:bg-[#852d2d7e] even:bg-[#a01818]'
                                         }`}
                                     >
                                         <td className="h-12 w-7">{couple.orden}</td>

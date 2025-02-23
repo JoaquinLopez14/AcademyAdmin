@@ -60,7 +60,9 @@ function PointsAdmin() {
             const count = validPoints.length;
 
             updatedInputs[index].average = 
-            count > 0 ? (validPoints.reduce((acc, curr) => acc + curr, 0) / count).toFixed(2) : 0;
+            count > 0 
+            ? (Math.floor((validPoints.reduce((acc, curr) => acc + curr, 0) / count) * 1000) / 1000).toFixed(3) 
+            : "0.000";
         }
         setCouplesInputs(updatedInputs);
     };
@@ -168,10 +170,10 @@ function PointsAdmin() {
                         <input type="text" className="bg-[#01010152] w-56 h-10 text-center" value={couple.femaleDancer} onChange={(e) => handleInputChange(index, 'femaleDancer', e.target.value)} />
                         <input type="text" className="bg-[#01010152] w-56 h-10 text-center" value={couple.maleDancer} onChange={(e) => handleInputChange(index, 'maleDancer', e.target.value)} />
                         <input type="text" className="bg-[#01010152] w-44 h-10 text-center" value={couple.country} onChange={(e) => handleInputChange(index, 'country', e.target.value)} />
-                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points1} onChange={(e) => handleInputChange(index, 'points1', e.target.value)} />
-                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points2} onChange={(e) => handleInputChange(index, 'points2', e.target.value)} />
-                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points3} onChange={(e) => handleInputChange(index, 'points3', e.target.value)} />
-                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points4} onChange={(e) => handleInputChange(index, 'points4', e.target.value)} />
+                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points1} onChange={(e) => handleInputChange(index, 'points1', e.target.value)} onWheel={(e) => e.target.blur()}/>
+                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points2} onChange={(e) => handleInputChange(index, 'points2', e.target.value)} onWheel={(e) => e.target.blur()}/>
+                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points3} onChange={(e) => handleInputChange(index, 'points3', e.target.value)} onWheel={(e) => e.target.blur()}/>
+                        <input type="number" className="bg-[#01010152] w-20 h-10 text-center" value={couple.points4} onChange={(e) => handleInputChange(index, 'points4', e.target.value)} onWheel={(e) => e.target.blur()}/>
                         <input type="number" className="bg-[#01010152] w-28 h-10 text-center text-yellow-400" value={couple.average} readOnly />
                         <button onClick={() => deleteCouple(index)} className="active:scale-150 transition-all hover:scale-125 hover:bg-red-600 w-8 text-center rounded-lg h-10 text-white"><MdDeleteForever/></button>
                     </div>
